@@ -59,7 +59,7 @@ Creamos una función `Camarero` para poder obtener el pedido, prepararlo (simula
             break  # Romper el bucle si la cola está vacía
   ```
 
-Por último tenemos nuestra función `Main`, la cual se encarga de darle funcionamiento a nuestros restaurante, dónde se organiza la toma de pedidos, que todas las mesas hayan ordenado algo, que los camareros no choquen entre si y que una vez terminados nuestros pedidos se tenga todo el proceso.
+Por último tenemos nuestra función `Main`, la cual se encarga de darle funcionamiento a nuestro restaurante, dónde se organiza la toma de pedidos, que todas las mesas hayan ordenado algo, que los camareros no choquen entre si y que una vez terminados nuestros pedidos se tenga todo el proceso.
 ```python
     def main():
     num_mesas = 5
