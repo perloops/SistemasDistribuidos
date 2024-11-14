@@ -28,7 +28,7 @@ Después definimos lo que sería nuestro menú, del cual los clientes cuentan co
   MENU = ["Pizza", "Pasta", "Ensalada", "Hamburguesa", "Sopa", "Camarones"]
   ```
 
-Creamos una función de llamada 'Mesa' que representa las mesas de nuestro restaurante, donde se realiza el pedido de forma aleatoria, se agrega el pedido a la cola y se comienza un tiempo de espera del pedido.
+Creamos una función de llamada `Mesa` que representa las mesas de nuestro restaurante, donde se realiza el pedido de forma aleatoria, se agrega el pedido a la cola y se comienza un tiempo de espera del pedido.
   ```python
   def mesa(id, cola_pedidos):
     # Generar un pedido de comida aleatoria del menu
@@ -40,7 +40,7 @@ Creamos una función de llamada 'Mesa' que representa las mesas de nuestro resta
     time.sleep(random.randint(1, 5))
    ```
 
-Creamos una función 'Camarero' para poder obtener el pedido, prepararlo (simulando igual un tiempo de preparación) y entregarlo. Todo esto dentro de una sentencia de ciclo que se detiene si ya no tenemos más pedidos en espera.
+Creamos una función `Camarero` para poder obtener el pedido, prepararlo (simulando igual un tiempo de preparación) y entregarlo. Todo esto dentro de una sentencia de ciclo que se detiene si ya no tenemos más pedidos en espera.
   ```python
        def camarero(id, cola_pedidos, lock):
     while True:
@@ -59,7 +59,7 @@ Creamos una función 'Camarero' para poder obtener el pedido, prepararlo (simula
             break  # Romper el bucle si la cola está vacía
   ```
 
-Por último tenemos nuestra función principal, la cual se encarga de darle funcionamiento a nuestros restaurante, dónde se organiza la toma de pedidos, que todas las mesas hayan ordenado algo, que los camareros no choquen entre si y que una vez terminados nuestros pedidos se tenga todo el proceso.
+Por último tenemos nuestra función `Main`, la cual se encarga de darle funcionamiento a nuestros restaurante, dónde se organiza la toma de pedidos, que todas las mesas hayan ordenado algo, que los camareros no choquen entre si y que una vez terminados nuestros pedidos se tenga todo el proceso.
 ```python
     def main():
     num_mesas = 5
