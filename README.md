@@ -13,9 +13,10 @@ El multithreading en Python es la creación y gestión de varios subprocesos den
 
 ### ¿Cómo funciona?
 Primero  lo que hicimos fue importar los siguientes módulos:
-- Time: 'time.sleep' para suspender la ejecución del hilo. 
-- Random: 'randome.choice' para retornar un elemento aleatorio del menú, y 'random.randint' para el tiempo de espera     del cliente.
-- Multiprocessing: 'multiprocessing.JoinableQueue' para crear cola de almacenamiento de pedidos.
+- Time: `time.sleep` para suspender la ejecución del hilo. 
+- Random: `randome.choice` para retornar un elemento aleatorio del menú, y 'random.randint' para el tiempo de espera     del cliente.
+- Multiprocessing: `multiprocessing.JoinableQueue` para crear cola de almacenamiento de pedidos.
+
   ```python
   import time
   import random
