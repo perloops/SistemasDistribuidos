@@ -103,3 +103,12 @@ Por último tenemos nuestra función principal, la cual se encarga de darle func
 Una vez corrido todo el código, nuestro restaurante funcioando se vería algo así:
   ![Captura de resultados obtenidos](https://github.com/perloops/SistemasDistribuidos/blob/055bdb085250350920f72492601c80f6aa6c28f0/Resultados.png)
 
+
+#### Integrantes:
+- Carlos Omar Fernández Casillas
+- Miguel Alejandro Rodríguez Cruz
+- Desireé Castañeda García
+- Axel Giovanni Ojeda Hernández
+- Perla Patricia Gómez Correa
+- Karla Guadalupe Rocha Quezada
+
