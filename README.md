@@ -11,6 +11,8 @@ Crear una API RESTful que permita gestionar la información de una escuela, util
 - Python
 - Visual Studio Code
 - Mongo DB
+- FastAPI
+- AWS S3
 
 
 ### ¿Cómo funciona?
