@@ -1,17 +1,16 @@
-# PRÁCTICA POKÉMONES 
+# PROYECTO II 
 
-En este proyecto se implementó el concepto 'multithreading' en Python para realizar tareas concurrentes, aprender a utilizar la biblioteca requests para realizar solicitudes HTTP a la PokeAPI, practicar la lectura y análisis de datos JSON y desarrollar habilidades para trabajar con hilos y sincronización en Python.
+En este proyecto nuestra problemática radica en que la UPIIZ necesita una aplicación para gestioanr la información de alumnos, profesores y mmaterias.
+Esta aplicación permite la creación de crear, leer, actualizar y/o eliminar registro de estudiantes, profesores y materias.
 
-## ¿Qué es multithreading?
-El multithreading en Python es la creación y gestión de varios subprocesos dentro de un programa, de modo que se ejecuten simultáneamente. esto permite la ejecución paralela de tareas.
+## Objetivo
+Crear una API RESTful que permita gestionar la información de una escuela, utilizando FastAPI como framework, MongoDB como base de datos NoSQL y AWS S3 como almacenamiento de archivos.
 
-## ¿Qué son las solicitudes PokeAPI?
-Las solicitudes HTTP son mensajes que los clientes envían a los servidores para solicitar información o iniciar acciones. Son la principal forma de comunicación entre un cliente y un servidor.
 
 ## Tecnologías usadas
 - Python
 - Visual Studio Code
-
+- Mongo DB
 
 
 ### ¿Cómo funciona?
