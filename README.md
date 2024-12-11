@@ -16,22 +16,64 @@ Crear una API RESTful que permita gestionar la información de una escuela, util
 
 
 ### ¿Cómo funciona?
-Primero  lo que hicimos fue importar los siguientes módulos:
-- `requests`, módulo que nos realizar enviar peticiones HTTP. 
-- `threading` modulo que nos permite usar hilos para que se ejecuten múltiples operaciones simultáneamente en el mismo espacio.
-- `tqdm` librería que utilizamos para mostrar barras de progreso en bucles e iterables, lo que permite hacer seguimiento del avance de tareas que requieren mucho tiempo.
-
+Módulos utilizados:
   ```python
-  import requests
-  import threading
-  from tqdm import tqdm 
-
-
-Después conectamos de dónde se sacan los datos para leerlos.
-  ```python
-  BASE_URL = "https://pokeapi.co/api/v2/pokemon/"
+from fastapi import FastAPI, File, UploadFile, HTTPException, Form, Depends
+from pathlib import Path
+import shutil
+from pydantic import BaseModel
+from motor import motor_asyncio
+import boto3
+from botocore.exceptions import NoCredentialsError
+from datetime import datetime, timedelta
+import uuid
+from typing import Optional, List, Annotated
+from fastapi.security import OAuth2AuthorizationCodeBearer, OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.exceptions import HTTPException
+from jose import jwt
   ```
 
+Configuración de conexión con MongoDB:
+  ```python
+MONGO_URI = "mongodb://localhost:27017"
+cliente = motor_asyncio.AsyncIOMotorClient(MONGO_URI)
+db = cliente["Escuela"]  
+  ```
+
+Configuración de cliente S3:
+  ```python
+s3 = boto3.client('s3')
+BUCKET_NAME = "sistemas-distribuidos-upiiz-departamental2"  
+  ```
+
+Colecciones:
+  ```python
+alumnos_collection = db["Alumnos"]
+materias_collection = db["Materias"]
+profesores_collection = db["Profesores"]
+calificacions_collection = db["Calificaciones"]  
+  ```
+
+Objeto para interactura con FastAPI:
+  ```python
+app = FastAPI()  
+  ```
+
+Ruta de almacenamiento de imágenes:
+  ```python
+IMAGES_DIR = Path("img")
+IMAGES_DIR.mkdir(exist_ok=True)  # Crea la carpeta si no existe  
+  ```
+
+dhdhdhhrlos.
+  ```python
+  
+  ```
+
+dhdhdhhrlos.
+  ```python
+  
+  ```
 Creamos una función de llamada `obtener_datos_pokemon` que va a recolector datos como nombr.
   ```python
 def obtener_datos_pokemon(pokemon_id):
