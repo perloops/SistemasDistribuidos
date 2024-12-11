@@ -65,7 +65,7 @@ IMAGES_DIR = Path("img")
 IMAGES_DIR.mkdir(exist_ok=True)  # Crea la carpeta si no existe  
   ```
 
-Tenemos 6 modelos de datos, los cales son:
+Tenemos 6 modelos de datos, los cuales son:
 - Alumno:  ```id, nombre, apellido, fecha_nacimiento, direccion, foto ```
 - Materias:  ```id, nombre, descripcion, profesor_id ```
 - Profesor:  ```id, nombre, apellido, fecha_nacimiento, direccion, especialidad, materias_id ```
@@ -103,10 +103,10 @@ async def read_root():
   ```
 
 Para los alumnos, profesores, materias y calificaciones se implementa su CRUD respectivamente.
-- Crear  ```@app.post()   ```
-- Leer  ```@app.get()   ```
-- Actualizar  ```@app.put()   ```
-- Eliminar  ```@app.delete()   ```
+- Crear  ```@app.post() ```
+- Leer  ```@app.get() ```
+- Actualizar  ```@app.put() ```
+- Eliminar  ```@app.delete() ```
 
 Las materias son asignadas a profesores y estos pueden tener varias materias a la vez.
 Los alumnos son inscritos a la materias  pueden estar inscritos en varias materias a la vez.
