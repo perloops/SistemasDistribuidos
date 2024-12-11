@@ -65,62 +65,59 @@ IMAGES_DIR = Path("img")
 IMAGES_DIR.mkdir(exist_ok=True)  # Crea la carpeta si no existe  
   ```
 
-dhdhdhhrlos.
+Tenemos 6 modelos de datos, los cales son:
+- Alumno:  ```id, nombre, apellido, fecha_nacimiento, direccion, foto ```
+- Materias:  ```id, nombre, descripcion, profesor_id ```
+- Profesor:  ```id, nombre, apellido, fecha_nacimiento, direccion, especialidad, materias_id ```
+- calificacion:  ```id, alumno_id, materia_id, calificacion ```
+- Token:  ```access_token, token_type ```
+- User:  ```username, role ```
+
+Configuración de cliente OAuth2:
   ```python
-  
+SECRET_KEY = "my-secret"  # Cambiar por una clave más segura en producción
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")  
   ```
 
-dhdhdhhrlos.
+Diccionario de usuarios:
   ```python
-  
-  ```
-Creamos una función de llamada `obtener_datos_pokemon` que va a recolector datos como nombr.
-  ```python
-def obtener_datos_pokemon(pokemon_id):
-    try:
-        response = requests.get(f"{BASE_URL}{pokemon_id}")
-        if response.status_code == 200:
-            datos = response.json()
-            nombre = datos["name"].capitalize()
-            tipos = [tipo["type"]["name"].capitalize() for tipo in datos["types"]]
-            estadisticas = {stat["stat"]["name"]: stat["base_stat"] for stat in datos["stats"]}
-            imprimir_datos_pokemon(nombre, tipos, estadisticas)
-        else:
-            print(f"Error al obtener el Pokémon {pokemon_id}: {response.status_code}")
-    except requests.RequestException as e:
-        print(f"Excepción al obtener el Pokémon {pokemon_id}: {e}")
-   ```
+users = {
+    "admin": {"username": "admin", "password": "1234", "role": "admin"},
+    "user": {"username": "user", "password": "1234", "role": "user"},
+}
 
-Creamos una función `imprimir_datos_pokemon` para poder mostrar las características.
-  ```python
- def imprimir_datos_pokemon(nombre, tipos, estadisticas):
-    print(f"Nombre: {nombre}")
-    print(f"Tipo: {', '.join(tipos)}")
-    print("Estadísticas:")
-    print(f"  HP: {estadisticas.get('hp', 'N/A')}")
-    print(f"  Ataque: {estadisticas.get('attack', 'N/A')}")
-    print(f"  Defensa: {estadisticas.get('defense', 'N/A')}")
-    print(f"  Ataque especial: {estadisticas.get('special-attack', 'N/A')}")
-    print(f"  Defensa especial: {estadisticas.get('special-defense', 'N/A')}")
-    print(f"  Velocidad: {estadisticas.get('speed', 'N/A')}")
-    print("-" * 40)
+@app.get("/")
+async def read_root():
+    return {
+        "message": "¡Bienvenido a la API de Ecuela!",
+        "1": "Miguel Alejandro Rodríguez Cruz",
+        "2": "Carlos Omar Fernández Casillas",
+        "3": "Axel Giovanni Ojeda Hernández",
+        "4": "Perla Patricia Gómez",
+        "5": "Karla Guadalupe Rocha Quezada",
+        "6": "Desire Castañeda García",
+    }  
   ```
 
-Por último tenemos nuestra función `Main`, la cual se encarga de darle funcionamiento a nuestro código.
-```python
-def main():
-    cantidad_pokemon = 50
-    hilos = []
-    for pokemon_id in range(1, cantidad_pokemon + 1):
-        hilo = threading.Thread(target=obtener_datos_pokemon, args=(pokemon_id,))
-        hilos.append(hilo)
-        hilo.start()
+Para los alumnos, profesores, materias y calificaciones se implementa su CRUD respectivamente.
+- Crear  ```@app.post()   ```
+- Leer  ```@app.get()   ```
+- Actualizar  ```@app.put()   ```
+- Eliminar  ```@app.delete()   ```
 
-    for hilo in tqdm(hilos, desc="Obteniendo datos de Pokémon"):
-        hilo.join()
-  ```
+Las materias son asignadas a profesores y estos pueden tener varias materias a la vez.
+Los alumnos son inscritos a la materias  pueden estar inscritos en varias materias a la vez.
+Las calificaciones están asociadas a un alumno y una materia específica.
+
 
 
 #### Integrantes:
+- Carlos Omar Fernández Casillas
+- Miguel Alejandro Rodríguez Cruz
+- Desireé Castañeda García
+- Axel Giovanni Ojeda Hernández
 - Perla Patricia Gómez Correa
 - Karla Guadalupe Rocha Quezada
