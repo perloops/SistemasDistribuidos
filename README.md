@@ -17,21 +17,33 @@ Crear una API RESTful que permita gestionar la información de una escuela, util
 
 ### ¿Cómo funciona?
 Módulos utilizados:
-  ```python
-from fastapi import FastAPI, File, UploadFile, HTTPException, Form, Depends
-from pathlib import Path
-import shutil
-from pydantic import BaseModel
-from motor import motor_asyncio
-import boto3
-from botocore.exceptions import NoCredentialsError
-from datetime import datetime, timedelta
-import uuid
-from typing import Optional, List, Annotated
-from fastapi.security import OAuth2AuthorizationCodeBearer, OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from fastapi.exceptions import HTTPException
-from jose import jwt
-  ```
+```from fastapi import ```
+- FastAPI: módulo principal para crear la aplicación web. 
+- File, UploadFile: se utilizan para manejar archivos subidos por el usuario a través de la API.
+- HTTPException: sirve para generar excepciones que se traducen en códigos de error HTTp específicos.
+- Form: permite acceder a datos enviados por el usuario en los formularios.
+- Depends: se usa para definir dependencias que se inyectan en las funciones de la API.
+```from pathlib import``` 
+- Path: proporciona herramientas para trabajar con rutas de archivos de forma sencilla.
+```import shutil```: ofrece funciones para mover, renombrar y eliminar archivos.
+```from pydantic import```
+- BaseModel: se utiliza para definir modelos de datos que validan la información entrante y saliente de la API.
+```from motor import```
+- motor_asyncio: permite interactuar con bases de datos MongoDB de manera asíncrona.
+```import boto3```: proporciona acceso a los servicios de Amazon Web Services (AWS).
+```from botocore.exceptions import```
+- NoCredentialsError: contiene excepciones específicas de la biblioteca boto3.
+```from datetime import```
+- datetime, timedelta: módulos para trabajar con fechas, horas y diferencias temporales.
+```import uuid```: genera identificadores únicos universales (UUID).
+```from typing import```
+- Optional, List, Annotated: proporciona tipos para anotaciones estáticas en Python, mejorando la legibilidad del código.
+```from fastapi.security import```
+- OAuth2AuthorizationCodeBearer, OAuth2PasswordBearer, OAuth2PasswordRequestForm: módulos para implementar seguridad en la API
+```from jose import``` 
+- jwt: librería para trabajar con tokens JSON Web (JWT).
+
+
 
 Configuración de conexión con MongoDB:
   ```python
@@ -112,48 +124,13 @@ Las materias son asignadas a profesores y estos pueden tener varias materias a l
 Los alumnos son inscritos a la materias  pueden estar inscritos en varias materias a la vez.
 Las calificaciones están asociadas a un alumno y una materia específica.
 
-En esta API solo los usuarios autorizados pueden acceder y/o modificar la información
-  ```python
-# Función para generar un token de acceso
-def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
-    to_encode = data.copy()
-    expire = datetime.utcnow() + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
-    to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt
+En la API solo los usuarios autorizados pueden acceder y/o modificar la información. Para esto tenemos 3 funciones:
+- ```create_access_token ```: esta función es para generar un token de acceso.
+- ```get_current_user ```: esta función es para obtener el usuario actual basado en el token.
+- ```admin_required ```: esta funcion es para verificar el rol de administrador.
+A su vez tenemos las rutas para obtener un token (```@app.post("/token", response_model=Token) ```) y obtener el perfil del usuario actual(```@app.post("/token", response_model=Token) ```).
 
-# Dependencia para obtener el usuario actual basado en el token
-def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]) -> User:
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-        if username is None or username not in users:
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
-        user_data = users[username]
-        return User(username=username, role=user_data["role"])
-    except JWTError:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
 
-# Dependencia para verificar el rol de administrador
-def admin_required(current_user: Annotated[User, Depends(get_current_user)]):
-    if current_user.role != "admin":
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not enough permissions")
-    return current_user
-
-# Ruta para obtener un token
-@app.post("/token", response_model=Token)
-def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
-    user = users.get(form_data.username)
-    if not user or user["password"] != form_data.password:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Incorrect username or password")
-    access_token = create_access_token(data={"sub": user["username"]})
-    return {"access_token": access_token, "token_type": "bearer"}
-
-# Ruta para obtener el perfil del usuario actual
-@app.get("/users/profile", response_model=User)
-def profile(current_user: Annotated[User, Depends(get_current_user)]):
-    return current_user
-  ```
 
 #### Integrantes:
 - Carlos Omar Fernández Casillas
