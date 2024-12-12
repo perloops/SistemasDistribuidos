@@ -146,10 +146,10 @@ A su vez tenemos las rutas para obtener un token (```@app.post("/token", respons
 
 
 
-##### Integrantes:
-- Carlos Omar Fernández Casillas
-- Miguel Alejandro Rodríguez Cruz
-- Desireé Castañeda García
-- Axel Giovanni Ojeda Hernández
-- Perla Patricia Gómez Correa
-- Karla Guadalupe Rocha Quezada
+#### Integrantes:
+##### - Carlos Omar Fernández Casillas
+##### - Miguel Alejandro Rodríguez Cruz
+##### - Desireé Castañeda García
+##### - Axel Giovanni Ojeda Hernández
+##### - Perla Patricia Gómez Correa
+##### - Karla Guadalupe Rocha Quezada
