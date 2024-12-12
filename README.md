@@ -112,7 +112,48 @@ Las materias son asignadas a profesores y estos pueden tener varias materias a l
 Los alumnos son inscritos a la materias  pueden estar inscritos en varias materias a la vez.
 Las calificaciones están asociadas a un alumno y una materia específica.
 
+En esta API solo los usuarios autorizados pueden acceder y/o modificar la información
+  ```python
+# Función para generar un token de acceso
+def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
+    to_encode = data.copy()
+    expire = datetime.utcnow() + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
+    to_encode.update({"exp": expire})
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return encoded_jwt
 
+# Dependencia para obtener el usuario actual basado en el token
+def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]) -> User:
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username: str = payload.get("sub")
+        if username is None or username not in users:
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
+        user_data = users[username]
+        return User(username=username, role=user_data["role"])
+    except JWTError:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
+
+# Dependencia para verificar el rol de administrador
+def admin_required(current_user: Annotated[User, Depends(get_current_user)]):
+    if current_user.role != "admin":
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not enough permissions")
+    return current_user
+
+# Ruta para obtener un token
+@app.post("/token", response_model=Token)
+def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
+    user = users.get(form_data.username)
+    if not user or user["password"] != form_data.password:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Incorrect username or password")
+    access_token = create_access_token(data={"sub": user["username"]})
+    return {"access_token": access_token, "token_type": "bearer"}
+
+# Ruta para obtener el perfil del usuario actual
+@app.get("/users/profile", response_model=User)
+def profile(current_user: Annotated[User, Depends(get_current_user)]):
+    return current_user
+  ```
 
 #### Integrantes:
 - Carlos Omar Fernández Casillas
