@@ -17,29 +17,41 @@ Crear una API RESTful que permita gestionar la información de una escuela, util
 
 ### ¿Cómo funciona?
 Módulos utilizados:
+
 ```from fastapi import ```
 - FastAPI: módulo principal para crear la aplicación web. 
 - File, UploadFile: se utilizan para manejar archivos subidos por el usuario a través de la API.
 - HTTPException: sirve para generar excepciones que se traducen en códigos de error HTTp específicos.
 - Form: permite acceder a datos enviados por el usuario en los formularios.
 - Depends: se usa para definir dependencias que se inyectan en las funciones de la API.
+
 ```from pathlib import``` 
 - Path: proporciona herramientas para trabajar con rutas de archivos de forma sencilla.
+
 ```import shutil```: ofrece funciones para mover, renombrar y eliminar archivos.
+
 ```from pydantic import```
 - BaseModel: se utiliza para definir modelos de datos que validan la información entrante y saliente de la API.
+
 ```from motor import```
 - motor_asyncio: permite interactuar con bases de datos MongoDB de manera asíncrona.
+
 ```import boto3```: proporciona acceso a los servicios de Amazon Web Services (AWS).
+
 ```from botocore.exceptions import```
 - NoCredentialsError: contiene excepciones específicas de la biblioteca boto3.
+
 ```from datetime import```
 - datetime, timedelta: módulos para trabajar con fechas, horas y diferencias temporales.
+
 ```import uuid```: genera identificadores únicos universales (UUID).
+
 ```from typing import```
 - Optional, List, Annotated: proporciona tipos para anotaciones estáticas en Python, mejorando la legibilidad del código.
+
 ```from fastapi.security import```
 - OAuth2AuthorizationCodeBearer, OAuth2PasswordBearer, OAuth2PasswordRequestForm: módulos para implementar seguridad en la API
+
 ```from jose import``` 
 - jwt: librería para trabajar con tokens JSON Web (JWT).
 
